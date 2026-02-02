@@ -1,157 +1,161 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>NASKY BET</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Plataforma do Naksy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0a1f14;
+    color: #fff;
+}
 
-    body {
-      background: #0f1720;
-      color: #fff;
-    }
+.container {
+    max-width: 400px;
+    margin: 60px auto;
+    background: #0f2d1f;
+    padding: 20px;
+    border-radius: 10px;
+}
 
-    header {
-      background: #0b121a;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #00ff88;
-    }
+h2 {
+    text-align: center;
+    color: #3cff9a;
+}
 
-    header h1 {
-      color: #00ff88;
-      font-size: 24px;
-      font-weight: bold;
-    }
+input, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 15px;
+}
 
-    .nav-buttons button {
-      background: transparent;
-      border: 1px solid #00ff88;
-      color: #00ff88;
-      padding: 8px 16px;
-      margin-left: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+input {
+    background: #163b2a;
+    color: #fff;
+}
 
-    .nav-buttons button:hover {
-      background: #00ff88;
-      color: #000;
-    }
+button {
+    background: #3cff9a;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-    .banner {
-      padding: 60px 20px;
-      text-align: center;
-      background: linear-gradient(180deg, #0f1720, #0b121a);
-    }
+button:hover {
+    opacity: 0.85;
+}
 
-    .banner h2 {
-      font-size: 36px;
-      color: #00ff88;
-      margin-bottom: 15px;
-    }
+.hidden {
+    display: none;
+}
 
-    .banner p {
-      color: #ccc;
-      max-width: 600px;
-      margin: auto;
-      font-size: 16px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 40px;
-    }
-
-    .card {
-      background: #121c26;
-      border-radius: 10px;
-      padding: 30px;
-      text-align: center;
-      border: 1px solid #1f2b38;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      border-color: #00ff88;
-      transform: translateY(-5px);
-    }
-
-    .card h3 {
-      margin-bottom: 10px;
-      color: #00ff88;
-    }
-
-    .card p {
-      font-size: 14px;
-      color: #bbb;
-    }
-
-    footer {
-      background: #0b121a;
-      padding: 20px;
-      text-align: center;
-      font-size: 13px;
-      color: #777;
-      border-top: 1px solid #1f2b38;
-    }
-  </style>
+.info {
+    background: #163b2a;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+</style>
 </head>
+
 <body>
 
-  <header>
-    <h1>NASKY BET</h1>
-    <div class="nav-buttons">
-      <button>Entrar</button>
-      <button>Cadastrar</button>
+<div class="container" id="login">
+    <h2>Entrar</h2>
+    <input id="loginUser" placeholder="Usuário">
+    <input id="loginPass" type="password" placeholder="Senha">
+    <button onclick="entrar()">Entrar</button>
+    <button onclick="mostrarCadastro()">Cadastro</button>
+</div>
+
+<div class="container hidden" id="cadastro">
+    <h2>Cadastro</h2>
+    <input id="cadUser" placeholder="Usuário">
+    <input id="cadPass" type="password" placeholder="Senha">
+    <button onclick="cadastrar()">Cadastrar</button>
+    <button onclick="voltarLogin()">Voltar</button>
+</div>
+
+<div class="container hidden" id="painel">
+    <h2>Plataforma de Apostas</h2>
+    <p>Bem-vindo, <span id="usuarioLogado"></span></p>
+
+    <button onclick="mostrarDeposito()">Depositar</button>
+    <button onclick="sair()">Sair</button>
+
+    <div class="info hidden" id="deposito">
+        <h3>Depósito via PIX (DEMO)</h3>
+        <p><strong>Chave PIX:</strong></p>
+        <input value="SUA_CHAVE_PIX_AQUI" readonly>
+        <p>
+            Após realizar o PIX, o saldo será creditado
+            <strong>manualmente</strong> (simulação).
+        </p>
+        <p style="color:#ffcc00;">
+            ⚠️ Esta é uma simulação. Nenhum pagamento real é processado.
+        </p>
     </div>
-  </header>
+</div>
 
-  <section class="banner">
-    <h2>A nova era das apostas</h2>
-    <p>
-      Bem-vindo à NASKY BET. Plataforma moderna, rápida e segura.
-      Este é apenas um layout demonstrativo, sem apostas reais.
-    </p>
-  </section>
+<script>
+function cadastrar() {
+    const user = cadUser.value;
+    const pass = cadPass.value;
 
-  <section class="cards">
-    <div class="card">
-      <h3>⚽ Esportes</h3>
-      <p>Área reservada para apostas esportivas.</p>
-    </div>
+    if (!user || !pass) {
+        alert("Preencha todos os campos");
+        return;
+    }
 
-    <div class="card">
-      <h3>🎰 Cassino</h3>
-      <p>Jogos de cassino (layout ilustrativo).</p>
-    </div>
+    localStorage.setItem("user", user);
+    localStorage.setItem("pass", pass);
 
-    <div class="card">
-      <h3>📊 Ao Vivo</h3>
-      <p>Eventos ao vivo em tempo real.</p>
-    </div>
+    alert("Cadastro realizado com sucesso!");
+    voltarLogin();
+}
 
-    <div class="card">
-      <h3>💰 Promoções</h3>
-      <p>Bônus e recompensas exclusivas.</p>
-    </div>
-  </section>
+function entrar() {
+    const user = loginUser.value;
+    const pass = loginPass.value;
 
-  <footer>
-    © 2026 NASKY BET — Interface demonstrativa. Todos os direitos reservados.
-  </footer>
+    if (
+        user === localStorage.getItem("user") &&
+        pass === localStorage.getItem("pass")
+    ) {
+        login.classList.add("hidden");
+        painel.classList.remove("hidden");
+        usuarioLogado.innerText = user;
+    } else {
+        alert("Usuário ou senha inválidos");
+    }
+}
+
+function mostrarCadastro() {
+    login.classList.add("hidden");
+    cadastro.classList.remove("hidden");
+}
+
+function voltarLogin() {
+    cadastro.classList.add("hidden");
+    login.classList.remove("hidden");
+}
+
+function mostrarDeposito() {
+    deposito.classList.toggle("hidden");
+}
+
+function sair() {
+    painel.classList.add("hidden");
+    login.classList.remove("hidden");
+}
+</script>
 
 </body>
 </html>
